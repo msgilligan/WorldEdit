@@ -19,6 +19,7 @@
 
 package com.sk89q.worldedit.forge;
 
+import com.google.common.collect.ImmutableMap;
 import com.sk89q.worldedit.entity.Player;
 import com.sk89q.worldedit.extension.platform.AbstractPlatform;
 import com.sk89q.worldedit.extension.platform.Actor;
@@ -43,7 +44,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -184,15 +184,17 @@ class ForgePlatform extends AbstractPlatform implements MultiUserPlatform {
         return mod.getInternalVersion();
     }
 
+    private static final Map<Capability, Preference> capabilities = ImmutableMap.<Capability, Preference>builder()
+        .put(Capability.CONFIGURATION, Preference.PREFER_OTHERS)
+        .put(Capability.WORLDEDIT_CUI, Preference.NORMAL)
+        .put(Capability.GAME_HOOKS, Preference.NORMAL)
+        .put(Capability.PERMISSIONS, Preference.NORMAL)
+        .put(Capability.USER_COMMANDS, Preference.NORMAL)
+        .put(Capability.WORLD_EDITING, Preference.PREFERRED)
+        .build();
+
     @Override
     public Map<Capability, Preference> getCapabilities() {
-        Map<Capability, Preference> capabilities = new EnumMap<Capability, Preference>(Capability.class);
-        capabilities.put(Capability.CONFIGURATION, Preference.PREFER_OTHERS);
-        capabilities.put(Capability.WORLDEDIT_CUI, Preference.NORMAL);
-        capabilities.put(Capability.GAME_HOOKS, Preference.NORMAL);
-        capabilities.put(Capability.PERMISSIONS, Preference.NORMAL);
-        capabilities.put(Capability.USER_COMMANDS, Preference.NORMAL);
-        capabilities.put(Capability.WORLD_EDITING, Preference.PREFERRED);
         return capabilities;
     }
 

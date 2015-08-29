@@ -41,10 +41,8 @@
       <allow pkg="net.minecraft.server"/>
     </subpackage>
 
-    <subpackage name="spout">
-      <allow pkg="org.spout"/>
-      <allow pkg="org.jboss.netty"/>
-      <allow pkg="org.apache"/>
+    <subpackage name="sponge">
+      <allow pkg="org.spongepowered"/>
     </subpackage>
 
     <subpackage name="forge">

@@ -62,7 +62,7 @@ import static net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 public class ForgeWorldEdit {
 
     public static Logger logger;
-    public static final String MOD_ID = "worldedit";
+    public static final String MOD_ID = "worldedit-forge";
     public static final String CUI_PLUGIN_CHANNEL = "WECUI";
 
     private ForgePermissionsProvider provider;
