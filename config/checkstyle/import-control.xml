@@ -43,6 +43,7 @@
 
     <subpackage name="sponge">
       <allow pkg="org.spongepowered"/>
+      <allow pkg="com.google.inject"/>
     </subpackage>
 
     <subpackage name="forge">

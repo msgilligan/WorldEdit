@@ -26,7 +26,7 @@ import com.sk89q.worldedit.extent.inventory.BlockBag;
 import com.sk89q.worldedit.session.SessionKey;
 import com.sk89q.worldedit.util.Location;
 import com.sk89q.worldedit.world.World;
-import org.spongepowered.api.entity.player.Player;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.text.format.TextColors;
 

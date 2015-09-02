@@ -22,9 +22,9 @@ import com.google.inject.Inject;
 import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.regions.RegionSelector;
-import org.spongepowered.api.entity.player.Player;
-import org.spongepowered.api.event.Subscribe;
-import org.spongepowered.api.event.state.InitializationEvent;
+import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.world.World;
@@ -35,8 +35,8 @@ public class SpongeWorldEdit {
     private SpongePlatform platform;
     @Inject private PluginContainer container;
 
-    @Subscribe
-    public void onInit(InitializationEvent e) {
+    @Listener
+    public void onInit(GameInitializationEvent e) {
         this.platform = new SpongePlatform(this);
 
         WorldEdit.getInstance().getPlatformManager().register(platform);
