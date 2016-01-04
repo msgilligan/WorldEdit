@@ -1509,23 +1509,34 @@ public class EditSession implements Extent {
         return affected;
     }
 
+
+    public int makePyramid(Vector position, Pattern block, int size, boolean filled) throws MaxChangedBlocksException {
+        return makePyramid(position, block, size, filled, 22);
+    }
+
     /**
      * Makes a pyramid.
+     *
+     * This version is modified to provide for a variable slope using the ancient Egyptian measure of slope, 'seked'.
+     * A seked of 28 digits results in a 45 degree angle, which is a rise of 1 block over a run of 1 block.
+     * The Great Pyramid of Khufu has a seked of 22 digits (5 1/2 palms) which is: arctan 28/22 = 51.84 degrees.
      *
      * @param position a position
      * @param block a block
      * @param size size of pyramid
      * @param filled true if filled
+     * @param seked Egyptian measure of slope in digits (slope = 28/seked)
      * @return number of blocks changed
      * @throws MaxChangedBlocksException thrown if too many blocks are changed
      */
-    public int makePyramid(Vector position, Pattern block, int size, boolean filled) throws MaxChangedBlocksException {
+    public int makePyramid(Vector position, Pattern block, int size, boolean filled, int seked) throws MaxChangedBlocksException {
         int affected = 0;
 
-        int height = size;
+        int base = size;
+        int height = base * 28 / seked;
 
         for (int y = 0; y <= height; ++y) {
-            size--;
+            size = sizeAtHeight(base, seked, y);
             for (int x = 0; x <= size; ++x) {
                 for (int z = 0; z <= size; ++z) {
 
@@ -1548,7 +1559,29 @@ public class EditSession implements Extent {
             }
         }
 
+        //
+        // Affected isn't calculated correctly
+        // height  currently calculated     correct
+        //    1              4                 1
+        //    2             20                10
+        //    3             56                35
         return affected;
+    }
+
+    static int sizeAtHeight(int base, int seked, int height) {
+        int topHeight = base * 28 / seked;
+        if (seked == 28) return topHeight - height;
+        if (seked != 22) throw new IllegalArgumentException("seked must be 28 or 22 in proof-of-concept code");
+        if (topHeight < seked) {
+            throw new IllegalArgumentException("total height must be greater than seked");
+        }
+        //
+        int size;
+        int tier = height / 14;
+        int mod = height % 14;
+        int[] table = {0,1,2,3,3,4,5,6,7,7,8,9,10,10};
+        size = base - (tier * 11 + table[mod]);
+        return size;
     }
 
     /**
